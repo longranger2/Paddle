@@ -883,6 +883,12 @@ def upsample(
             # [2L, 3L, 12L, 12L]
 
     """
+    if len(x.shape == 3):
+        assert len(size.shape) == 1, "the shape of size should be (out_w, ) when input is a 3-D Tensor"
+    elif len(x.shape == 4):
+        assert len(size.shape) == 2, "the shape of size should be (out_h, out_w) when input is a 4-D Tensor"
+    elif len(x.shape == 5):
+        assert len(size.shape) == 3, "the shape of size should be (out_d, out_h, out_w) when input is a 5-D Tensor"
     return interpolate(
         x, size, scale_factor, mode, align_corners, align_mode, data_format
     )
